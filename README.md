@@ -1,4 +1,4 @@
-# Bedrock Claude Grafana Smart Monitor
+# Grafana Smart Monitor
 
 This project leverages the power of the Claude AI model from Anthropic to intelligently monitor and analyze Grafana dashboards. By combining the capabilities of AWS Bedrock, Claude, and Grafana, it provides an innovative solution for efficient and insightful monitoring of your applications and infrastructure.
 
@@ -15,12 +15,14 @@ This project leverages the power of the Claude AI model from Anthropic to intell
 It's an architecture built on AWS managed services, eliminating the need for infrastructure management. Utilizing Amazon Bedrock, there's no need to communicate with APIs outside of AWS. This enables deploying scalable, reliable, and secure applications.
 
 - [Amazon Bedrock](https://aws.amazon.com/bedrock/): Managed service to utilize foundational models via APIs
-- Amazon RDS/MySQL
+- Amazon RDS MySQL or self managed MySQL
 - Amazon Cloudwatch
 - Amazon EC2
 - AWS SDK for Go v3
 
 
+
+![image-20240516100727835](resources/image-20240516100727835.png)
 
 ## Getting Started
 
@@ -31,6 +33,26 @@ To get started with the Bedrock Claude Grafana Smart Monitor, follow these steps
 3. Configure the necessary AWS resources and Grafana integration details.
 4. Deploy the solution using AWS Bedrock and the provided deployment scripts.
 5. Access the intelligent monitoring dashboard and start benefiting from Claude's analysis and insights.
+
+
+
+## Demo
+
+Metrics
+
+![image-20240516101058980](/Users/wsuam/Library/Application Support/typora-user-images/image-20240516101058980.png)
+
+Scheduler
+
+![image-20240516101145450](resources/image-20240516101145450.png)
+
+
+
+![image-20240516101228335](resources/image-20240516101228335.png)
+
+
+
+
 
 ## Contributing
 
@@ -55,6 +77,8 @@ This project would not have been possible without the following technologies and
 ## Authors
 
 - [Su Wei](https://github.com/stevensu1977)
+
+- Guo Jun Long
 
   
 
