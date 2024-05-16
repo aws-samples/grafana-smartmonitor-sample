@@ -1,0 +1,78 @@
+version: '4'
+ 
+services: 
+  mysql:
+    image: mysql:8.0
+    container_name: mysql-8
+    networks: 
+      - grafana
+    environment:
+      MYSQL_ROOT_PASSWORD: your-secret-pw
+    ports:
+      - 3306:3306
+    volumes:
+      - ./backend/sql:/docker-entrypoint-initdb.d/
+    healthcheck:
+      test: ["CMD-SHELL", "mysql -uroot -p$$MYSQL_ROOT_PASSWORD -e 'SHOW DATABASES LIKE \"bedrock_claude3_grafana_automonitor\";'"]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+      start_period: 10s
+
+  grafana: 
+    image: grafana/grafana 
+    container_name: grafana
+    networks: 
+      - grafana 
+    environment: 
+      - GF_PATHS_DATA=/var/lib/grafana 
+      - GF_SECURITY_ADMIN_PASSWORD=your-secret-pw
+      - GF_SECURITY_ADMIN_USER=admin
+    command:
+      - "sh"
+      - "-c"
+      - "grafana cli admin reset-admin-password ${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
+    ports: 
+      - 3100:3000 
+  chromedp: 
+    image: chromedp/headless-shell
+    container_name: chromedp
+    networks: 
+      - grafana 
+    ports: 
+      - 9222:9222 
+    command:
+      - --disable-gpu 
+      - --headless 
+  backend: 
+    image: backend
+    container_name: backend
+    networks: 
+      - grafana
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment: 
+      - HEADLESS=true
+    command:
+      - /app/automonitor 
+      - -dbName=bedrock_claude3_grafana_automonitor 
+      - -dbUser=root 
+      - -dbPassword=your-secret-pw
+      - -dbHost=mysql
+      - -front=http://front:3000
+      - -chromeDP=ws://chromedp:9222
+    volumes: 
+      - ./backend/static:/app/static
+   
+    ports: 
+      - 8080:8080
+  front: 
+    image: front
+    container_name: front
+    networks: 
+      - grafana 
+    ports: 
+      - 3000:3000
+networks: 
+  grafana: {}
