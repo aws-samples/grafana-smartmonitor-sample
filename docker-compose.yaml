@@ -31,7 +31,7 @@ services:
     command:
       - "sh"
       - "-c"
-      - "grafana cli admin reset-admin-password ${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
+      - "grafana cli admin reset-admin-password $${GF_SECURITY_ADMIN_PASSWORD} && /run.sh"
     ports: 
       - 3100:3000 
   chromedp: 
