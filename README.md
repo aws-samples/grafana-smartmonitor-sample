@@ -40,8 +40,6 @@ To get started with the Bedrock Claude Grafana Smart Monitor, follow these steps
 
 Metrics
 
-![image-20240516101058980](/Users/wsuam/Library/Application Support/typora-user-images/image-20240516101058980.png)
-
 Scheduler
 
 ![image-20240516101145450](resources/image-20240516101145450.png)
